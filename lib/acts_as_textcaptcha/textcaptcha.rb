@@ -101,7 +101,13 @@ module ActsAsTextcaptcha
             random_question = textcaptcha_config[:questions][rand(textcaptcha_config[:questions].size)].symbolize_keys!
             if random_question[:question] && random_question[:answers]
               self.spam_question = random_question[:question]
-              self.spam_answers  = encrypt_answers(random_question[:answers].split(',').map!{ |answer| md5_answer(answer) })
+              @@encrypted_answers ||= {}
+              if @@encrypted_answers.has_key?(random_question[:answers])
+                self.spam_answers = @@encrypted_answers[random_question[:answers]]
+              else
+                self.spam_answers  = encrypt_answers(random_question[:answers].split(',').map!{ |answer| md5_answer(answer) })
+                @@encrypted_answers[random_question[:answers]] = self.spam_answers
+              end
             end
           end
 
