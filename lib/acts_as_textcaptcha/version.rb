@@ -1,3 +1,3 @@
 module ActsAsTextcaptcha
-  VERSION = "3.0.10"
+  VERSION = "f0.0.4"
 end

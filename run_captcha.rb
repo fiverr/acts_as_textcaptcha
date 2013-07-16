@@ -21,7 +21,14 @@ end
 
 
 obj = FiverrEntity.new
-obj.textcaptcha
+obj.textcaptcha(false)
+p "question =>  #{obj.spam_question}"
 
+obj.textcaptcha(false)
+p "question =>  #{obj.spam_question}"
 
+obj.textcaptcha(false)
+p "question =>  #{obj.spam_question}"
+
+obj.textcaptcha(false)
 p "question =>  #{obj.spam_question}"
