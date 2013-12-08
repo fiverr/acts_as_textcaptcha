@@ -100,7 +100,11 @@ module ActsAsTextcaptcha
 
           # fall back to textcaptcha_config questions if they are configured correctly
           if questions
-            random_question = questions[user_locale][rand(questions[user_locale].size)].symbolize_keys!
+            if questions.is_a?(Hash) # new fromat of textcaptcha.yml for questions
+              random_question = questions[user_locale][rand(questions[user_locale].size)].symbolize_keys!
+            else # old fromat of textcaptcha.yml for questions
+              random_question = questions[rand(questions.size)].symbolize_keys!
+            end
             if random_question[:question] && random_question[:answers]
               self.spam_question = random_question[:question]
               self.spam_answers  = encrypt_answers(random_question[:answers].split(',').map!{ |answer| md5_answer(answer) })
