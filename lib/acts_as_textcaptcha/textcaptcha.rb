@@ -101,6 +101,7 @@ module ActsAsTextcaptcha
           # fall back to textcaptcha_config questions if they are configured correctly
           if questions
             if questions.is_a?(Hash) # new fromat of textcaptcha.yml for questions
+              user_locale = "en" if user_locale.blank?
               random_question = questions[user_locale][rand(questions[user_locale].size)].symbolize_keys!
             else # old fromat of textcaptcha.yml for questions
               random_question = questions[rand(questions.size)].symbolize_keys!
